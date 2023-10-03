@@ -1,10 +1,12 @@
 const { sign, verify } = require("jsonwebtoken");
 
+// Função para criar tokens
 const criarToken = (usuario) => {
   const tokenAcesso = sign({ nome: usuario.nome, id: usuario.id }, "jwtsecret");
   return tokenAcesso;
 };
 
+// Middleware para validar o token
 const validarToken = (req, res, next) => {
   const tokenAcesso = req.cookies["token-acesso"];
 
@@ -23,5 +25,7 @@ const validarToken = (req, res, next) => {
     return res.status(403).json("Token inválido");
   }
 };
+
+module.exports = { criarToken, validarToken };
 
 module.exports = { criarToken, validarToken };
